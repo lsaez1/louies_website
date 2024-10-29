@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Regestration Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=2.0" />
+  </head>
+  <body>
+    <h1>
+      I lied. But please feel free to provide feedback. :) 
+    </h1>
+    <form action="/services/handle-form" method="POST" action="personal-details">
+      <fieldset>
+        <legend>Personal Details</legend>
+        <label>
+          First name: 
+          <input type="text" name="firstname" size="20" maxlength="50" required />
+        </label>
+        <br>
+        <label> 
+          Last Name:
+          <input type="text" name="lastname" size="30" maxlength="70" required />
+        </label>
+        <br>
+        <label> 
+          Email: 
+          <input type="email" name="email" size="30" maxlength="70" required />
+        </label>
+        <br> 
+      </fieldset>
+      <fieldset> 
+        <legend>Quistionaire</legend>
+        <p>
+          Do you like my website? 
+          <br>
+          <label>
+            <input type="radio" name="feedback" value="yes" /> 
+            Yes
+          </label>         
+          <label>
+            <input type="radio" name="feedback" value="no" /> 
+            No
+          </label>
+        </p>
+        <p>
+          <br> 
+          <label for="improvements"> 
+            Do you have any suggestions for improvements? 
+            </label>
+            <br> 
+            <textarea id="improvements" name="improvements" rows="5" cols="50"> 
+            </textarea>
+        </p>
+      </fieldset>
+      <input type="submit" value="Submit form" />
+    </form>
+  </body>
+</html>

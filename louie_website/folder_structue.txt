@@ -1,0 +1,23 @@
+project-root/
+│
+├── public/             # Publicly accessible files
+│   ├── index.html      # Main HTML file
+│   ├── assets/         # Images, fonts, etc.
+│   ├── css/            # Stylesheets
+│   └── js/             # JavaScript files
+│
+├── src/                # Source files
+│   ├── components/     # Reusable components (if using a framework/library)
+│   ├── styles/         # SCSS/CSS files
+│   ├── scripts/        # JavaScript/TypeScript files
+│   ├── assets/         # Source images, fonts, etc.
+│   └── index.js        # Main JavaScript file
+│
+├── dist/               # Production build output
+│
+├── node_modules/       # Node.js modules (if using npm or yarn)
+│
+├── .gitignore          # Git ignore file
+├── package.json        # npm/yarn configuration file
+├── README.md           # Project documentation
+└── webpack.config.js   # Webpack configuration file (if using Webpack)

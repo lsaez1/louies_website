@@ -1,0 +1,2 @@
+
+      `password` varchar(64),

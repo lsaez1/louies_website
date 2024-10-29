@@ -1,0 +1,10 @@
+/* body {
+  background-image: url('/src/the_great_wave.jpg'); 
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-attachment: fixed;  
+  background-size: cover;
+} */
+ .greatWave{
+  width: 150px;
+ }

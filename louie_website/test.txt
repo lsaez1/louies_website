@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" href="customStyles.css">
+</head>
+<body>
+<div class="header">
+	<h1>Administrator Portal</h1>
+	<button class="btn" onclick="window.location.href='homepage.jsp';">Return to Homepage</button>
+</div>
+<div class="admin-options">
+	<h2>Admin Functions</h2>
+	<ul>
+		<li><a href="createRepAccount.jsp">Create Customer Representative Account</a></li>
+		<li><a href="manageReps.jsp">Manage Customer Representative Accounts</a></li>
+		<li><a href="generateReport.jsp">Generate Sales Report</a></li>
+		<li><a href="logout.jsp">Log Out</a></li>
+	</ul>
+</div>
+<div class="footer">
+	<button class="btn" onclick="window.location.href='logout.jsp';">Sign Out</button>
+</div>
+<script>
+	function goToPage(url) {
+		window.location.href = url;
+	}
+</script>
+</body>
+</html>
