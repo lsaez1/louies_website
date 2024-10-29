@@ -43,6 +43,8 @@ webServer.listen(port, hostname, () => {
 const express = require('express'); // Import Express module
 const path = require('path'); // Import the Path module for cross-platform compatibility
 const db = require('./db'); // Import database connection from db.js
+const { createUserFeedback } = require('./db'); // Import the createUserFeedback function from your database file
+console.log(db);
 
 const app = express();
 const port = 8000;
@@ -55,7 +57,7 @@ app.use('/src', express.static(path.join(__dirname, 'src')));
 
 app.use(express.urlencoded({
   extended: true
-}));
+})); // parse data in form POST requests
 
 // Route to serve the index.html file
 app.get('/', (req, res) => {
@@ -63,14 +65,20 @@ app.get('/', (req, res) => {
     //.sendfile is a helper function in express that reads the file, prepares then sends a corresponding HTTP response
 });
 
-//
-app.post('/personal-details', async (req,res) =>{
-  const user = req.body; 
-  //use data accordingly
-  // user.firstname ...
-  // if person does not exist, create new entry... append current input 
-  res.status(200).send('Form Data Successfully submitted')
+
+//POST route that recieves form data. uses db function to save information to database. ** does not validate information**
+app.post('/personal-details', async (req, res) => {
+  const user = req.body;
+
+  try { 
+    await createUserFeedback(user);
+    res.status(200).send('Form Data Successfully submitted');
+  } catch (error) {  // Add error parameter here
+    res.status(500).send('Error Processing User Data: ' + error.message);
+  }
 });
+
+
 
 // Start the server and listen on the specified port
 app.listen(port, () => {

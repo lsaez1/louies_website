@@ -1,5 +1,5 @@
 // MySQL database configuration
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 
 
@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   host : "localhost", 
   user: "root",
   password: "root", 
-  database: "Louies_website_database"
+  database: "louies_website_database"
 });
 
 
@@ -23,7 +23,7 @@ connection.connect((err) => {
   
   // Execute SQL statements
   createDatabase();
-  createUsersTable();
+  createUsersFeedbackTable();
   insertInitialData();
   
   // Close MySQL connection
@@ -33,7 +33,7 @@ connection.connect((err) => {
 
 
 function createDatabase() {
-  connection.query("CREATE DATABASE IF NOT EXISTS `louies_website_database` /*!40100 DEFAULT CHARACTER SET latin1 */;", (err, result) => {
+  connection.query("CREATE DATABASE IF NOT EXISTS `louies_website_database` ;", (err, result) => {
     if (err) {
       console.error('Error creating database:', err);
       return;
@@ -44,33 +44,33 @@ function createDatabase() {
 
 
 
-// Function to create users table
-function createUsersTable() {
+// Function to create usersFeedback table
+function createUsersFeedbackTable() {
   connection.query(`
-    CREATE TABLE IF NOT EXISTS users (
-      userid INT AUTO_INCREMENT PRIMARY KEY,
-      username VARCHAR(50) NOT NULL UNIQUE,
-      password VARCHAR(50) NOT NULL
+    CREATE TABLE IF NOT EXISTS usersFeedback (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      firstname VARCHAR(50) NOT NULL,
+      lastname VARCHAR(50) NOT NULL,
+      email VARCHAR(50) NOT NULL UNIQUE,
+      feedback BOOLEAN,
+      improvements VARCHAR(500)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
   `, (err, result) => {
     if (err) {
-      console.error('Error creating users table:', err);
+      console.error('Error creating usersFeedback table:', err);
       return;
     }
-    console.log('Table users created (if not exists)');
+    console.log('Table usersFeedback created (if not exists)');
   });
 }
-
 
 
 // Function to insert initial data into users table
 function insertInitialData() {
   connection.query(`
-    INSERT INTO users (username, password)
-    SELECT * FROM (SELECT 'testUser', 'testPass') AS tmp
-    WHERE NOT EXISTS (
-        SELECT username FROM users WHERE username = 'testUser'
-    );
+    INSERT IGNORE INTO usersFeedback (firstname, lastname, email, feedback, improvements) 
+    VALUES ('John', 'Doe', 'john@example.com', TRUE, 'Add more content');
+
   `, (err, result) => {
     if (err) {
       console.error('Error inserting initial data:', err);
@@ -78,12 +78,39 @@ function insertInitialData() {
     }
     
     if (result.affectedRows > 0) {
-      console.log('Initial data inserted into users table');
+      console.log('Initial data inserted into usersFeedback table');
     } else {
-      console.log('Initial data already exists in users table');
+      console.log('Initial data already exists in usersFeedback table');
     }
   });
 }
 
+// Function to create user feedback
+async function createUserFeedback(user) {
+    const query = 'INSERT INTO usersFeedback (firstname, lastname, email, feedback, improvements) VALUES (?, ?, ?, ?, ?)';
+    const values = [user.firstname, user.lastname, user.email, user.feedback, user.improvements];
+
+    return new Promise((resolve, reject) => {
+        // Connect to the database
+        connection.connect((err) => {
+            if (err) {
+                console.error('Error connecting to MySQL database:', err);
+                return reject(err);
+            }
+
+            // Execute the query
+            connection.query(query, values, (error, results) => {
+                // Close the connection after the query is executed
+                connection.end();
+
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results);
+            });
+        });
+    });
+}
 
 
+module.exports = { createUserFeedback } ;

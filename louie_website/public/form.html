@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html> 
   <head>
-    <title>Regestration Form</title>
-    <meta name="viewport" content="width=device-width,initial-scale=2.0" />
+    <title>Registration Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   </head>
   <body>
     <h1>
       I lied. But please feel free to provide feedback. :) 
     </h1>
-    <form action="/services/handle-form" method="POST" action="personal-details">
+    <form action="/personal-details" method="POST"> <!--this form gets sent to line 71 of the server to be processed-->
       <fieldset>
         <legend>Personal Details</legend>
         <label>
@@ -28,7 +28,7 @@
         <br> 
       </fieldset>
       <fieldset> 
-        <legend>Quistionaire</legend>
+        <legend>Questionnaire</legend>
         <p>
           Do you like my website? 
           <br>
@@ -45,10 +45,9 @@
           <br> 
           <label for="improvements"> 
             Do you have any suggestions for improvements? 
-            </label>
-            <br> 
-            <textarea id="improvements" name="improvements" rows="5" cols="50"> 
-            </textarea>
+          </label>
+          <br> 
+          <textarea id="improvements" name="improvements" rows="5" cols="50"></textarea>
         </p>
       </fieldset>
       <input type="submit" value="Submit form" />

@@ -1,0 +1,56 @@
+louie@louie-XPS-13-9360:~$ sudo mysql -u root -p
+[sudo] password for louie: 009988
+Enter password: root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 38
+Server version: 8.0.39-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES
+    -> ;
++-------------------------+
+| Database                |
++-------------------------+
+| information_schema      |
+| louies_website_database |
+| mysql                   |
+| performance_schema      |
+| sys                     |
++-------------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE louies_website_databas;
+ERROR 1049 (42000): Unknown database 'louies_website_databas'
+mysql> USE louies_website_database;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++-----------------------------------+
+| Tables_in_louies_website_database |
++-----------------------------------+
+| usersFeedback                     |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> USE userFeedback;
+ERROR 1049 (42000): Unknown database 'userFeedback'
+mysql> SELECT usersFeedback;
+ERROR 1054 (42S22): Unknown column 'usersFeedback' in 'field list'
+mysql> SELECT * FROM usersFeedback;
++----+-----------+----------+------------------+----------+------------------+
+| id | firstname | lastname | email            | feedback | improvements     |
++----+-----------+----------+------------------+----------+------------------+
+|  1 | John      | Doe      | john@example.com |        1 | Add more content |
++----+-----------+----------+------------------+----------+------------------+
+1 row in set (0.00 sec)
+
+mysql> 
